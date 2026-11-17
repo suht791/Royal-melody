@@ -54,78 +54,51 @@ body {
 
 
 /* INTRO SCREEN */
-
 .intro {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 30px;
+      background: linear-gradient(135deg, #ffc8ea, #ffc3e8);
+      isolation: isolate;
+      overflow: hidden;
+    }
 
-    min-height: 100vh;
+    /* CASTLE BACKGROUND */
+    .intro::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: url("castle.png") center center / cover no-repeat;
+      opacity: 0;
+      filter: blur(10px) saturate(45%) brightness(1.08);
+      transform: scale(1.06);
+      animation: castleFadeIn 7s ease-out 0.25s forwards;
+    }
 
-    width: 100%;
+    @keyframes castleFadeIn {
+      to {
+        opacity: 1;
+      }
+    }
 
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    text-align: center;
-
-    position: relative;
-
-    padding: 30px;
-
-    background: linear-gradient(135deg, #ffc8ea, #ffc3e8);
-
-    isolation: isolate;
-
-    overflow: hidden;
-
-}
-
-
-
-/* CASTLE BACKGROUND */
-
-.intro::before {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    z-index: -2;
-
-    background: url("castle.png") center center / cover no-repeat;
-
-
-
-    opacity: 0;
-
-    filter: blur(10px) saturate(45%) brightness(1.08);
-
-    transform: scale(1.06);
-
-
-
-    animation: castleFadeIn 7s ease-out 0.25s forwards;
-
-}
-
-
-
-
-
-.intro > * {
-
-    position: relative;
-
-    z-index: 1;
-
-}
-
-
+    /* HTML SVG GRAIN LAYER */
+    .grain-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+      opacity: 0.35;
+    }
 
 /* SLOW CASTLE APPEARANCE */
 
@@ -155,9 +128,9 @@ body {
 
     100% {
 
-        opacity: 0.72;
+        opacity: 0.60;
 
-        filter: blur(2px) saturate(65%) brightness(1.05);
+        filter: blur(1px) saturate(65%) brightness(1.05);
 
         transform: scale(1);
 
