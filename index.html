@@ -1,0 +1,2505 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Royal Melody</title>
+
+
+
+<link rel="preload" as="image" href="castle.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=Averia+Sans+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Beau+Rivage&family=Dongle&family=Emilys+Candy&family=Hi+Melody&family=Imperial+Script&family=Indie+Flower&family=Jua&family=LXGW+Marker+Gothic&family=Noto+Serif+JP:wght@200..900&family=Noto+Serif+KR:wght@200..900&family=Rock+3D&family=Syne+Mono&family=Yomogi&family=Yuji+Boku&display=swap" rel="stylesheet">
+
+
+
+<style>
+
+* {
+
+    box-sizing: border-box;
+
+    scroll-behavior: smooth;
+    cursor: none !important;
+
+}
+
+
+
+body {
+
+    margin: 0;
+
+    background: #fffaff;
+
+    font-family: "indie flower", cursive;
+
+    font-weight: 400;
+
+    overflow-x: hidden;
+
+    cursor: none;
+
+}
+
+
+
+/* INTRO SCREEN */
+
+.intro {
+
+    min-height: 100vh;
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+
+    padding: 30px;
+
+    background: linear-gradient(135deg, #ffc8ea, #ffc3e8);
+
+    isolation: isolate;
+
+    overflow: hidden;
+
+}
+
+
+
+/* CASTLE BACKGROUND */
+
+.intro::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -2;
+
+    background: url("castle.png") center center / cover no-repeat;
+
+
+
+    opacity: 0;
+
+    filter: blur(10px) saturate(45%) brightness(1.08);
+
+    transform: scale(1.06);
+
+
+
+    animation: castleFadeIn 7s ease-out 0.25s forwards;
+
+}
+
+
+
+
+
+.intro > * {
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
+
+
+/* SLOW CASTLE APPEARANCE */
+
+@keyframes castleFadeIn {
+
+    0% {
+
+        opacity: 0;
+
+        filter: blur(10px) saturate(45%) brightness(1.08);
+
+        transform: scale(1.06);
+
+    }
+
+
+
+    40% {
+
+        opacity: 0.45;
+
+        filter: blur(6px) saturate(55%) brightness(1.06);
+
+    }
+
+
+
+    100% {
+
+        opacity: 0.72;
+
+        filter: blur(2px) saturate(65%) brightness(1.05);
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+
+@keyframes overlayFadeIn {
+
+    0% { opacity: 0; }
+
+    100% { opacity: 1; }
+
+}
+
+
+
+/* INTRO TITLE */
+
+.intro-title {
+
+    font-family: "Emilys Candy", cursive;
+
+    font-weight: 200;
+
+    font-size: clamp(50px, 8vw, 100px);
+
+    color: #fff0fa;
+
+    text-shadow:
+
+        0 3px 18px rgba(133, 63, 119, 0.42),
+
+        0 0 28px rgba(255, 190, 232, 0.8);
+
+    margin: 0;
+
+    min-height: 1.3em;
+
+    line-height: 1.1;
+
+}
+
+
+
+.intro-subtitle {
+
+    font-size: 16px;
+
+    letter-spacing: 2px;
+
+    color: #fffaff;
+
+    text-shadow: 0 2px 10px rgba(112, 55, 104, 0.55);
+
+    margin-top: 10px;
+
+    opacity: 0;
+
+    transition: opacity 1s ease;
+
+}
+
+
+
+/* ENTER BUTTON */
+
+.start-button {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    min-width: 96px;
+    min-height: 96px;
+    margin-top: 35px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: transparent;
+    font-size: 0;
+    cursor: none !important;
+    opacity: 0;
+    transform: translateY(15px) scale(.85);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.start-button.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.start-button:hover {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    transform: translateY(-3px) scale(1.12);
+}
+
+.start-button:focus-visible {
+    outline: 2px solid #ffe78a;
+    outline-offset: 8px;
+}
+
+.start-button::after {
+    content: "★";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 82px;
+    line-height: 1;
+    color: #fff3a6;
+    text-shadow:
+        0 0 8px #fff7c2,
+        0 0 18px #ffe78a,
+        0 0 30px #ffb9e4,
+        0 0 45px #ffb9e4;
+    opacity: 1;
+    pointer-events: none;
+    transform: scale(1);
+    transition: transform .3s ease, text-shadow .3s ease;
+}
+
+.start-button:hover::after {
+    opacity: 1;
+    transform: scale(1.12) rotate(8deg);
+    text-shadow:
+        0 0 10px #fff7c2,
+        0 0 24px #ffe78a,
+        0 0 38px #ffb9e4,
+        0 0 55px #ffb9e4;
+}
+
+
+
+/* INTRO DECORATIONS */
+
+.decoration {
+
+    position: absolute;
+
+    color: #fff0fa;
+
+    font-size: 30px;
+
+    text-shadow: 0 0 16px rgba(255, 177, 225, 0.95);
+
+    animation: float 3s ease-in-out infinite;
+
+}
+
+
+
+.decoration.one {
+
+    top: 22%;
+
+    left: 20%;
+
+}
+
+
+
+.decoration.two {
+
+    top: 30%;
+
+    right: 22%;
+
+    animation-delay: .7s;
+
+}
+
+
+
+.decoration.three {
+
+    bottom: 25%;
+
+    left: 27%;
+
+    animation-delay: 1.2s;
+
+}
+
+
+
+.decoration.four {
+
+    bottom: 20%;
+
+    right: 25%;
+
+    animation-delay: .4s;
+
+}
+
+
+
+@keyframes float {
+
+    0%, 100% { transform: translateY(0); }
+
+    50% { transform: translateY(-12px); }
+
+}
+
+
+
+/* CROWN SECTION */
+
+.crown-section {
+
+    min-height: 100vh;
+
+    padding: 30px 15px;
+
+    background: #ffffff;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    gap: 0;
+
+    position: relative;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+}
+
+
+
+.crown-heading {
+
+    font-family: "Imperial Script", cursive;
+
+    font-weight: 400;
+
+    font-size: clamp(55px, 7vw, 85px);
+
+    color: #ff7fd2;
+
+    position: relative;
+
+    z-index: 1;
+
+    margin: 0 0 5px;
+
+    line-height: 1;
+
+    opacity: 0;
+
+    text-shadow: 0 0 16px rgba(255, 193, 231, 0.95);
+
+    transform: scale(0.55) translateY(18px);
+
+    transform-origin: center;
+
+}
+
+
+
+.crown-heading.show {
+
+    animation: headingPop 850ms cubic-bezier(0.2, 1.6, 0.4, 1) both;
+
+}
+
+
+
+@keyframes headingPop {
+
+    0% {
+
+        opacity: 0;
+
+        transform: scale(0.55) translateY(18px);
+
+    }
+
+    65% {
+
+        opacity: 1;
+
+        transform: scale(1.12) translateY(-4px);
+
+    }
+
+    82% {
+
+        transform: scale(0.96) translateY(1px);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform: scale(1) translateY(0);
+
+    }
+
+}
+
+
+
+/* INSTRUCTIONS */
+
+.crown-description {
+
+    font-family: "indie flower", cursive;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    line-height: 1.3;
+
+    color: #ad83a0;
+
+    position: relative;
+
+    z-index: 1;
+
+    margin: 0 0 15px;
+
+    opacity: 0;
+
+    transform: translateY(12px);
+
+    transition: opacity 1s ease, transform 1s ease;
+
+}
+
+
+
+.crown-description.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+
+.hint {
+
+    font-family: "Hi Melody", cursive;
+
+    color: #c28db2;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+    margin-top: 8px;
+
+    line-height: 1.2;
+
+    opacity: 0;
+
+    transform: translateY(10px);
+
+    transition: opacity 1s ease, transform 1s ease;
+
+}
+
+
+
+.hint.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+    animation: hintFloat 2.5s ease-in-out infinite;
+
+}
+
+
+
+@keyframes hintFloat {
+
+    0%, 100% { transform: translateY(0); }
+
+    50% { transform: translateY(-5px); }
+
+}
+
+
+
+/* CROWN STAGE */
+
+.stage {
+
+    width: min(1200px, 100%);
+
+    min-height: 0;
+
+    margin: 0 auto;
+
+    background: transparent;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    position: relative;
+
+    z-index: 1;
+
+    overflow: visible;
+
+    opacity: 0;
+
+    transform: scale(0.92);
+
+    transition: opacity 1.2s ease, transform 1.2s ease;
+
+}
+
+
+
+.stage.show {
+
+    opacity: 1;
+
+    transform: scale(1);
+
+}
+
+
+
+.crown-wrap {
+
+    width: 100%;
+
+    max-width: 1050px;
+
+    position: relative;
+
+    line-height: 0;
+
+}
+
+
+
+.crown-image {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    pointer-events: none;
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
+
+
+#crownScene {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    overflow: visible;
+
+    pointer-events: auto;
+
+    z-index: 2;
+    transform: translateY(5px);
+
+}
+
+
+
+/* BACKGROUND RIPPLE */
+
+.airbrush-bloom {
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100vmax;
+
+    height: 100vmax;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    opacity: 0;
+
+    transform: translate(-50%, -50%) scale(.06);
+
+    background:
+
+        radial-gradient(circle,
+
+            color-mix(in srgb, var(--bloom-color) 15%, transparent) 0%,
+
+            color-mix(in srgb, var(--bloom-color) 9%, transparent) 24%,
+
+            transparent 42%),
+
+        radial-gradient(circle,
+
+            transparent 37%,
+
+            color-mix(in srgb, var(--bloom-color) 27%, transparent) 38%,
+
+            color-mix(in srgb, var(--bloom-color) 17%, transparent) 39%,
+
+            transparent 41%),
+
+        radial-gradient(circle,
+
+            transparent 54%,
+
+            color-mix(in srgb, var(--bloom-color) 21%, transparent) 55%,
+
+            color-mix(in srgb, var(--bloom-color) 12%, transparent) 56%,
+
+            transparent 58%),
+
+        radial-gradient(circle,
+
+            transparent 70%,
+
+            color-mix(in srgb, var(--bloom-color) 16%, transparent) 71%,
+
+            color-mix(in srgb, var(--bloom-color) 9%, transparent) 72%,
+
+            transparent 74%);
+
+    filter: blur(13px);
+
+    animation: backgroundRipple 1.8s cubic-bezier(.12,.62,.28,1) forwards;
+
+}
+
+
+
+@keyframes backgroundRipple {
+
+    0% {
+
+        opacity: 0;
+
+        transform: translate(-50%, -50%) scale(.06);
+
+        filter: blur(18px);
+
+    }
+
+    14% { opacity: .9; }
+
+    58% {
+
+        opacity: .62;
+
+        filter: blur(14px);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform: translate(-50%, -50%) scale(1);
+
+        filter: blur(22px);
+
+    }
+
+}
+
+
+
+/* JEWELS */
+
+.pad {
+
+    stroke: #ff00b8;
+
+    stroke-width: 2;
+
+    cursor: none;
+
+    pointer-events: visiblePainted;
+
+    transform-box: fill-box;
+
+    transform-origin: center;
+
+    transition: transform 140ms ease-out, filter 140ms ease-out;
+
+    will-change: transform, filter;
+
+    opacity: 0;
+
+}
+
+
+
+.pad.reveal {
+
+    animation: jewelReveal 1s ease-out forwards;
+
+}
+
+
+
+.pad:hover,
+
+.pad.playing {
+
+    transform: scale(1.12);
+
+    filter: drop-shadow(0 0 6px currentColor);
+
+}
+
+
+
+.pad-hit-area {
+
+    fill: transparent;
+
+    stroke: transparent;
+
+    pointer-events: all;
+
+    cursor: none;
+
+}
+
+
+
+@keyframes jewelReveal {
+
+    0% {
+
+        opacity: 0;
+
+        transform: scale(.2);
+
+        filter: brightness(2);
+
+    }
+
+    60% {
+
+        opacity: 1;
+
+        transform: scale(1.2);
+
+        filter: brightness(1.5);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+        filter: brightness(1);
+
+    }
+
+}
+
+
+
+/* WAND */
+
+.wand {
+
+    position: fixed;
+
+    width: 180px;
+
+    height: auto;
+
+    left: 0;
+
+    top: 0;
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+    transform: translate(0, 0) rotate(-12deg);
+
+}
+
+
+
+.wand img {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    object-fit: contain;
+
+}
+
+
+
+/* SPARKLES */
+
+.sparkle-layer {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 10000;
+
+    overflow: hidden;
+
+}
+
+
+
+.sparkle {
+
+    position: absolute;
+
+    color: #ff91ca;
+
+    font-size: 22px;
+
+    text-shadow: 0 0 8px #f5ff40, 0 0 15px #ffa4d8;
+
+    animation: sparkleBurst .75s ease-out forwards;
+
+}
+
+
+
+@keyframes sparkleBurst {
+
+    0% {
+
+        opacity: 0;
+
+        transform: translate(0, 0) scale(.2) rotate(0deg);
+
+    }
+
+    20% { opacity: 1; }
+
+    100% {
+
+        opacity: 0;
+
+        transform: translate(var(--move-x), var(--move-y))
+
+                   scale(1.2) rotate(120deg);
+
+    }
+
+}
+
+
+
+/* ENTRANCE STARDUST */
+
+.entrance-sparkle {
+
+    position: absolute;
+
+    pointer-events: none;
+
+    color: #fff3a6;
+
+    text-shadow:
+
+        0 0 8px #fff,
+
+        0 0 18px #ffe78a,
+
+        0 0 28px #ffb9e4;
+
+    animation: entranceStardust 1s ease-out forwards;
+
+}
+
+
+
+@keyframes entranceStardust {
+
+    0% {
+
+        opacity: 0;
+
+        transform: translate(0, 0) scale(.2) rotate(0deg);
+
+    }
+
+    20% { opacity: 1; }
+
+    100% {
+
+        opacity: 0;
+
+        transform: translate(var(--move-x), var(--move-y))
+
+                   scale(1.4) rotate(180deg);
+
+    }
+
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .intro::before,
+
+    .intro::after {
+
+        animation-duration: 0.01ms;
+
+        opacity: 1;
+
+    }
+
+}
+
+
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+    .intro {
+
+        padding: 20px;
+
+    }
+
+
+
+    .intro-title {
+
+        font-size: 85px;
+
+    }
+
+
+
+    .crown-section {
+
+        padding: 25px 10px;
+
+    }
+
+
+
+    .crown-heading {
+
+        font-size: 60px;
+
+    }
+
+
+
+    .crown-description {
+
+        font-size: 11px;
+
+        letter-spacing: 0.5px;
+
+        margin-bottom: 12px;
+
+    }
+
+
+
+    .stage {
+
+        width: 100%;
+
+    }
+
+
+
+    .wand {
+
+        width: 120px;
+
+    }
+
+
+
+    .decoration.one {
+
+        left: 8%;
+
+    }
+
+
+
+    .decoration.two {
+
+        right: 8%;
+
+    }
+
+}
+
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<!-- INTRO SCREEN -->
+
+<section class="intro" id="intro">
+
+    <span class="decoration one">☆</span>
+
+    <span class="decoration two">♡</span>
+
+    <span class="decoration three">⟡</span>
+
+    <span class="decoration four">☆</span>
+
+
+
+    <h1 class="intro-title" id="introTitle"></h1>
+
+
+
+    <p class="intro-subtitle" id="introSubtitle">
+
+        A LITTLE WORLD OF MUSIC AND MAGIC
+
+    </p>
+
+
+
+    <button class="start-button" id="startButton" type="button" aria-label="Enter the palace"></button>
+
+</section>
+
+
+
+<!-- CROWN SECTION -->
+
+<section class="crown-section" id="crownSection">
+
+
+
+    <h2 class="crown-heading">Where the Magic Begins</h2>
+
+
+
+    <p class="crown-description" id="crownDescription">
+
+        TAP THE JEWELS TO CREATE YOUR OWN MUSICAL MELODY
+
+    </p>
+
+
+
+    <main class="stage">
+
+        <div class="crown-wrap">
+
+
+
+            <img src="crown.png"
+
+class="crown-image"
+
+alt="Pink crown design">
+
+
+
+            <svg id="crownScene"
+
+viewBox="0 0 1536 1024"
+
+preserveAspectRatio="none">
+
+
+
+                <g id="pads"></g>
+
+
+
+            </svg>
+
+        </div>
+
+
+
+        <div class="hint" id="crownHint"></div>
+
+    </main>
+
+</section>
+
+
+
+<!-- WAND -->
+
+<div class="wand" id="wand" aria-hidden="true">
+
+    <img src="wand.png" alt="">
+
+</div>
+
+
+
+<div class="sparkle-layer" id="sparkleLayer"></div>
+
+
+
+<script>
+
+
+
+/* ALWAYS RESTART AT THE INTRO AFTER A REFRESH */
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+}
+window.addEventListener("pageshow", function() {
+    window.scrollTo(0, 0);
+});
+
+/* INTRO ANIMATION */
+
+const titleText = "Royal Melody";
+
+const introTitle = document.getElementById("introTitle");
+
+const introSubtitle = document.getElementById("introSubtitle");
+
+const startButton = document.getElementById("startButton");
+
+
+
+let letterIndex = 0;
+
+
+
+function typeTitle() {
+
+    if (letterIndex < titleText.length) {
+
+        introTitle.textContent += titleText.charAt(letterIndex);
+
+        letterIndex++;
+
+        setTimeout(typeTitle, 250);
+
+    } else {
+
+        setTimeout(function() {
+
+            introSubtitle.style.opacity = "1";
+
+        }, 400);
+
+
+
+        setTimeout(function() {
+
+            startButton.classList.add("show");
+
+        }, 1200);
+
+    }
+
+}
+
+
+
+window.addEventListener("load", function() {
+
+    setTimeout(typeTitle, 500);
+
+});
+
+
+
+
+
+/* MAGICAL PALACE REVEAL */
+
+const crownSection = document.getElementById("crownSection");
+
+const crownHeading = document.querySelector(".crown-heading");
+
+const crownDescription = document.getElementById("crownDescription");
+
+const crownStage = document.querySelector(".stage");
+
+
+
+let palaceStarted = false;
+
+
+
+startButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    if (palaceStarted) return;
+
+    palaceStarted = true;
+    startButton.disabled = true;
+
+    // Move from the intro screen to the crown section.
+    const crownTop = crownSection.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: crownTop, behavior: "smooth" });
+
+    // Reveal the crown and its instructions.
+    crownHeading.classList.add("show");
+    setTimeout(function() { crownStage.classList.add("show"); }, 500);
+    setTimeout(function() { crownDescription.classList.add("show"); }, 900);
+    setTimeout(function() {
+        document.querySelectorAll(".pad").forEach(function(pad) {
+            pad.classList.add("reveal");
+        });
+    }, 1500);
+
+    // Play the entrance sound and sparkle effects; these cannot block scrolling.
+    try {
+        const audio = getAudioContext();
+        if (audio && audio.state === "suspended") {
+            audio.resume().catch(function(error) {
+                console.warn("Audio could not be started:", error);
+            });
+        }
+        playHarpSound(4);
+        const buttonRect = startButton.getBoundingClientRect();
+        createEntranceStardust(
+            buttonRect.left + buttonRect.width / 2,
+            buttonRect.top + buttonRect.height / 2
+        );
+    } catch (error) {
+        console.warn("Entrance effects could not play:", error);
+    }
+});
+
+/* CROWN CIRCLE POSITIONS */
+
+const padPositions = [
+
+    [776,158,"#83f3f3"],
+
+    [720,206,"#ffd2f3"],
+
+    [824,206,"#80f5c0"],
+
+    [770,238,"#83f3f3"],
+
+    [735,275,"#80f5c0"],
+
+    [800,275,"#ffd2f3"],
+
+    [680,310,"#80f5c0"],
+
+    [650,355,"#83f3f3"],
+
+    [630,405,"#ffd2f3"],
+
+    [650,455,"#80f5c0"],
+
+    [680,500,"#83f3f3"],
+
+    [860,310,"#80f5c0"],
+
+    [890,355,"#83f3f3"],
+
+    [910,405,"#ffd2f3"],
+
+    [890,455,"#80f5c0"],
+
+    [860,500,"#83f3f3"],
+
+    [600,385,"#80f5c0"],
+
+    [555,420,"#ffd2f3"],
+
+    [510,460,"#83f3f3"],
+
+    [475,510,"#80f5c0"],
+
+    [445,565,"#ffd2f3"],
+
+    [936,385,"#80f5c0"],
+
+    [981,420,"#ffd2f3"],
+
+    [1026,460,"#83f3f3"],
+
+    [1061,510,"#80f5c0"],
+
+    [1091,565,"#ffd2f3"],
+
+    [385,545,"#83f3f3"],
+
+    [420,605,"#80f5c0"],
+
+    [490,575,"#ffd2f3"],
+
+    [530,640,"#83f3f3"],
+
+    [1151,545,"#83f3f3"],
+
+    [1116,605,"#80f5c0"],
+
+    [1046,575,"#ffd2f3"],
+
+    [1006,640,"#83f3f3"],
+
+    [725,585,"#80f5c0"],
+
+    [770,615,"#ffd2f3"],
+
+    [815,585,"#83f3f3"],
+
+    [395,675,"#80f5c0"],
+
+    [455,650,"#83f3f3"],
+
+    [580,665,"#ffd2f3"],
+
+    [655,640,"#80f5c0"],
+
+    [1141,675,"#83f3f3"],
+
+    [1081,650,"#80f5c0"],
+
+    [956,665,"#ffd2f3"],
+
+    [881,640,"#83f3f3"]
+
+];
+
+
+
+const padsGroup = document.getElementById("pads");
+
+
+
+
+
+/* EXPAND COLORED RIPPLE BEHIND CROWN */
+
+function createAirbrushBloom(x, y, color) {
+
+    const bloom = document.createElement("div");
+
+    bloom.className = "airbrush-bloom";
+
+
+
+    const sectionRect = crownSection.getBoundingClientRect();
+
+
+
+    bloom.style.left = (x - sectionRect.left) + "px";
+
+    bloom.style.top = (y - sectionRect.top) + "px";
+
+
+
+    bloom.style.setProperty("--bloom-color", color);
+
+
+
+    crownSection.appendChild(bloom);
+
+
+
+    bloom.addEventListener("animationend", function() {
+
+        bloom.remove();
+
+    }, { once: true });
+
+}
+
+
+
+
+
+/* CREATE JEWELS */
+
+padPositions.forEach(function(position, index) {
+
+
+
+    const circle = document.createElementNS(
+
+        "http://www.w3.org/2000/svg",
+
+        "circle"
+
+    );
+
+
+
+    circle.setAttribute("cx", position[0]);
+
+    circle.setAttribute("cy", position[1]);
+
+    circle.setAttribute("r", "16");
+
+    circle.setAttribute("fill", position[2]);
+
+    circle.setAttribute("class", "pad");
+
+
+
+    circle.addEventListener("pointerover", function(event) {
+
+
+
+        if (event.relatedTarget && circle.contains(event.relatedTarget)) {
+
+            return;
+
+        }
+
+
+
+        createAirbrushBloom(event.clientX, event.clientY, position[2]);
+
+        createSparkles(event.clientX, event.clientY);
+
+        playJewelSound(index);
+
+    });
+
+
+
+    circle.addEventListener("click", function() {
+
+
+
+        playHarpSound(index);
+
+        playGlitterShimmerSound(index);
+
+
+
+        circle.classList.add("playing");
+
+
+
+        setTimeout(function() {
+
+            circle.classList.remove("playing");
+
+        }, 180);
+
+    });
+
+
+
+    padsGroup.appendChild(circle);
+
+});
+
+
+
+
+
+/* WAND FOLLOWS MOUSE */
+
+const wand = document.getElementById("wand");
+
+
+
+document.addEventListener("mousemove", function(event) {
+
+    // The wand tip is positioned at the real pointer location.
+    wand.style.left = event.clientX + "px";
+
+    wand.style.top = event.clientY + "px";
+
+});
+
+
+
+
+
+/* AUDIO */
+
+let audioContext;
+
+
+function getAudioContext() {
+
+    const AudioContextClass =
+
+        window.AudioContext || window.webkitAudioContext;
+
+
+
+    if (!AudioContextClass) return null;
+
+
+
+    if (!audioContext) {
+
+        audioContext = new AudioContextClass();
+
+    }
+
+
+
+    if (audioContext.state === "suspended") {
+
+        audioContext.resume().catch(function(error) {
+
+            console.warn("Audio resume failed:", error);
+
+        });
+
+    }
+
+
+
+    return audioContext;
+
+}
+
+
+
+
+
+/* FIVE MAGICAL JEWEL SOUNDS */
+
+const jewelSoundNames = ["Sparkle", "Glass Tap", "Flute", "Piano", "Violin"];
+
+
+
+function playJewelSound(index) {
+
+    const soundType = index % 5;
+
+
+
+    if (soundType === 0) playSparkleSound();
+
+    if (soundType === 1) playGlassTapSound();
+
+    if (soundType === 2) playFluteSound(index);
+
+    if (soundType === 3) playPianoSound(index);
+
+    if (soundType === 4) playViolinSound(index);
+
+}
+
+
+
+
+
+/* 1. SPARKLE */
+
+function playSparkleSound() {
+
+    const audio = getAudioContext();
+
+    if (!audio) return;
+
+
+
+    const now = audio.currentTime;
+
+
+
+    [880, 1320, 1760].forEach(function(frequency, index) {
+
+
+
+        const oscillator = audio.createOscillator();
+
+        const gain = audio.createGain();
+
+
+
+        oscillator.type = "sine";
+
+
+
+        oscillator.frequency.setValueAtTime(
+
+frequency,
+
+            now + index * 0.045
+
+        );
+
+
+
+        gain.gain.setValueAtTime(
+
+            0.0001,
+
+            now + index * 0.045
+
+        );
+
+
+
+        gain.gain.exponentialRampToValueAtTime(
+
+            0.12,
+
+            now + index * 0.045 + 0.012
+
+        );
+
+
+
+        gain.gain.exponentialRampToValueAtTime(
+
+            0.0001,
+
+            now + index * 0.045 + 0.42
+
+        );
+
+
+
+        oscillator.connect(gain);
+
+        gain.connect(audio.destination);
+
+
+
+        oscillator.start(now + index * 0.045);
+
+        oscillator.stop(now + index * 0.045 + 0.43);
+
+    });
+
+}
+
+
+
+
+
+/* 2. GLASS TAP */
+
+function playGlassTapSound() {
+
+    const audio = getAudioContext();
+
+    if (!audio) return;
+
+
+
+    const now = audio.currentTime;
+
+
+
+    [1046.5, 2093, 3139.5].forEach(function(frequency, index) {
+
+
+
+        const oscillator = audio.createOscillator();
+
+        const gain = audio.createGain();
+
+
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(frequency, now);
+
+
+
+        gain.gain.setValueAtTime(0.0001, now);
+
+
+
+        gain.gain.exponentialRampToValueAtTime(
+
+index === 0 ? 0.16 : 0.045,
+
+            now + 0.006
+
+        );
+
+
+
+        gain.gain.exponentialRampToValueAtTime(
+
+            0.0001,
+
+            now + 0.65 - index * 0.12
+
+        );
+
+
+
+        oscillator.connect(gain);
+
+        gain.connect(audio.destination);
+
+
+
+        oscillator.start(now);
+
+        oscillator.stop(now + 0.66);
+
+    });
+
+}
+
+
+
+
+
+/* 3. FLUTE */
+
+function playFluteSound(index) {
+
+    const audio = getAudioContext();
+
+    if (!audio) return;
+
+
+
+    const now = audio.currentTime;
+
+
+
+    const oscillator = audio.createOscillator();
+
+    const vibrato = audio.createOscillator();
+
+    const vibratoGain = audio.createGain();
+
+    const filter = audio.createBiquadFilter();
+
+    const gain = audio.createGain();
+
+
+
+    const notes = [523.25, 587.33, 659.25, 698.46, 783.99];
+
+
+
+    oscillator.type = "sine";
+
+
+
+    oscillator.frequency.setValueAtTime(
+
+        notes[Math.floor(index / 5) % notes.length],
+
+        now
+
+    );
+
+
+
+    vibrato.type = "sine";
+
+    vibrato.frequency.value = 5;
+
+    vibratoGain.gain.value = 3;
+
+
+
+    vibrato.connect(vibratoGain);
+
+    vibratoGain.connect(oscillator.frequency);
+
+
+
+    filter.type = "lowpass";
+
+    filter.frequency.value = 1800;
+
+
+
+    gain.gain.setValueAtTime(0.0001, now);
+
+    gain.gain.linearRampToValueAtTime(0.13, now + 0.09);
+
+    gain.gain.setValueAtTime(0.13, now + 0.24);
+
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.75);
+
+
+
+    oscillator.connect(filter);
+
+    filter.connect(gain);
+
+    gain.connect(audio.destination);
+
+
+
+    vibrato.start(now);
+
+    oscillator.start(now);
+
+
+
+    oscillator.stop(now + 0.76);
+
+    vibrato.stop(now + 0.76);
+
+}
+
+
+
+
+
+/* 4. PIANO */
+
+function playPianoSound(index) {
+
+    const audio = getAudioContext();
+
+    if (!audio) return;
+
+
+
+    const now = audio.currentTime;
+
+
+
+    const notes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33];
+
+
+
+    const frequency = notes[Math.floor(index / 5) % notes.length];
+
+
+
+    [1, 2, 3].forEach(function(partial, partialIndex) {
+
+
+
+        const oscillator = audio.createOscillator();
+
+        const gain = audio.createGain();
+
+
+
+        oscillator.type = "triangle";
+
+        oscillator.frequency.value = frequency * partial;
+
+
+
+        const volume = [0.14, 0.035, 0.012][partialIndex];
+
+
+
+        gain.gain.setValueAtTime(0.0001, now);
+
+
+
+        gain.gain.exponentialRampToValueAtTime(
+
+            volume,
+
+            now + 0.008
+
+        );
+
+
+
+        gain.gain.exponentialRampToValueAtTime(
+
+            0.0001,
+
+            now + 0.9 / partial
+
+        );
+
+
+
+        oscillator.connect(gain);
+
+        gain.connect(audio.destination);
+
+
+
+        oscillator.start(now);
+
+        oscillator.stop(now + 0.92 / partial);
+
+    });
+
+}
+
+
+
+
+
+/* 5. VIOLIN */
+
+function playViolinSound(index) {
+
+    const audio = getAudioContext();
+
+    if (!audio) return;
+
+
+
+    const now = audio.currentTime;
+
+
+
+    const notes = [392.00, 440.00, 493.88, 523.25, 587.33, 659.25];
+
+
+
+    const frequency = notes[Math.floor(index / 5) % notes.length];
+
+
+
+    const oscillator = audio.createOscillator();
+
+    const vibrato = audio.createOscillator();
+
+    const vibratoGain = audio.createGain();
+
+    const filter = audio.createBiquadFilter();
+
+    const gain = audio.createGain();
+
+
+
+    oscillator.type = "sawtooth";
+
+    oscillator.frequency.value = frequency;
+
+
+
+    vibrato.type = "sine";
+
+    vibrato.frequency.value = 5.5;
+
+    vibratoGain.gain.value = 4;
+
+
+
+    vibrato.connect(vibratoGain);
+
+    vibratoGain.connect(oscillator.frequency);
+
+
+
+    filter.type = "lowpass";
+
+    filter.frequency.value = 1400;
+
+
+
+    gain.gain.setValueAtTime(0.0001, now);
+
+    gain.gain.linearRampToValueAtTime(0.10, now + 0.12);
+
+    gain.gain.setValueAtTime(0.10, now + 0.35);
+
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.95);
+
+
+
+    oscillator.connect(filter);
+
+    filter.connect(gain);
+
+    gain.connect(audio.destination);
+
+
+
+    vibrato.start(now);
+
+    oscillator.start(now);
+
+
+
+    oscillator.stop(now + 0.96);
+
+    vibrato.stop(now + 0.96);
+
+}
+
+
+
+
+
+/* SPARKLES */
+
+const sparkleLayer = document.getElementById("sparkleLayer");
+
+
+
+function createSparkles(x, y) {
+
+    const symbols = ["✦", "✧", "✧", "·", "✦"];
+
+
+
+    const centerX = x + 18;
+
+    const centerY = y - 28;
+
+
+
+    for (let i = 0; i < 9; i++) {
+
+
+
+        const sparkle = document.createElement("span");
+
+
+
+        sparkle.className = "sparkle";
+
+
+
+        sparkle.textContent =
+
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+
+
+        sparkle.style.left = centerX + "px";
+
+        sparkle.style.top = centerY + "px";
+
+
+
+        sparkle.style.setProperty(
+
+            "--move-x",
+
+            (Math.random() * 90 - 45) + "px"
+
+        );
+
+
+
+        sparkle.style.setProperty(
+
+            "--move-y",
+
+            (Math.random() * 90 - 45) + "px"
+
+        );
+
+
+
+        sparkle.style.fontSize =
+
+            (12 + Math.random() * 17) + "px";
+
+
+
+        sparkleLayer.appendChild(sparkle);
+
+
+
+        setTimeout(function() {
+
+            sparkle.remove();
+
+        }, 800);
+
+    }
+
+}
+
+
+
+
+
+/* ENTRANCE STARDUST BURST */
+
+function createEntranceStardust(x, y) {
+
+
+
+    const symbols = ["✦", "✧", "★", "·", "✴"];
+
+
+
+    for (let i = 0; i < 35; i++) {
+
+
+
+        const sparkle = document.createElement("span");
+
+
+
+        sparkle.className = "entrance-sparkle";
+
+
+
+        sparkle.textContent =
+
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+
+
+        sparkle.style.left = x + "px";
+
+        sparkle.style.top = y + "px";
+
+
+
+        sparkle.style.fontSize =
+
+            (14 + Math.random() * 25) + "px";
+
+
+
+        sparkle.style.color =
+
+            i % 3 === 0 ? "#fff3a6" :
+
+            i % 2 === 0 ? "#ffffff" : "#ffb9e4";
+
+
+
+        sparkle.style.setProperty(
+
+            "--move-x",
+
+            (Math.random() * 320 - 160) + "px"
+
+        );
+
+
+
+        sparkle.style.setProperty(
+
+            "--move-y",
+
+            (Math.random() * 260 - 130) + "px"
+
+        );
+
+
+
+        sparkleLayer.appendChild(sparkle);
+
+
+
+        setTimeout(function() {
+
+            sparkle.remove();
+
+        }, 1000);
+
+    }
+
+}
+
+
+
+
+
+/* HARP SOUND */
+
+function playHarpSound(index) {
+
+    const audio = getAudioContext();
+
+    if (!audio) return;
+
+
+
+    const now = audio.currentTime;
+
+
+
+    const scale = [0, 2, 4, 7, 9, 12, 14];
+
+
+
+    const root = 392 * Math.pow(
+
+        2,
+
+        scale[index % scale.length] / 12
+
+    );
+
+
+
+    const chord = [1, 1.25, 1.5, 2];
+
+
+
+    chord.forEach(function(interval, noteIndex) {
+
+
+
+        const start = now + noteIndex * 0.035;
+
+        const frequency = root * interval;
+
+
+
+        [1, 2, 3].forEach(function(partial, partialIndex) {
+
+
+
+            const oscillator = audio.createOscillator();
+
+            const gain = audio.createGain();
+
+
+
+            oscillator.type = "triangle";
+
+
+
+            oscillator.frequency.setValueAtTime(
+
+                frequency * partial,
+
+                start
+
+            );
+
+
+
+            const volume = [0.12, 0.035, 0.012][partialIndex];
+
+
+
+            gain.gain.setValueAtTime(0.0001, start);
+
+
+
+            gain.gain.exponentialRampToValueAtTime(
+
+                volume,
+
+                start + 0.008
+
+            );
+
+
+
+            gain.gain.exponentialRampToValueAtTime(
+
+                0.0001,
+
+                start + 1.35 / partial
+
+            );
+
+
+
+            oscillator.connect(gain);
+
+            gain.connect(audio.destination);
+
+
+
+            oscillator.start(start);
+
+            oscillator.stop(start + 1.38 / partial);
+
+        });
+
+    });
+
+}
+
+
+
+
+
+/* GLITTER SHIMMER */
+
+function playGlitterShimmerSound(index) {
+
+    const audio = getAudioContext();
+
+    if (!audio) return;
+
+
+
+    const now = audio.currentTime;
+
+
+
+    const notes = [1568, 1760, 2093, 2349, 2637, 3136];
+
+
+
+    const offset = index % notes.length;
+
+
+
+    for (let i = 0; i < 7; i++) {
+
+
+
+        const start = now + i * 0.055;
+
+        const frequency = notes[(i + offset) % notes.length];
+
+
+
+        const oscillator = audio.createOscillator();
+
+        const gain = audio.createGain();
+
+        const shimmer = audio.createBiquadFilter();
+
+
+
+        oscillator.type = "sine";
+
+
+
+        oscillator.frequency.setValueAtTime(frequency, start);
+
+
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+
+            frequency * 1.015,
+
+            start + 0.18
+
+        );
+
+
+
+        shimmer.type = "highpass";
+
+        shimmer.frequency.value = 1200;
+
+
+
+        gain.gain.setValueAtTime(0.0001, start);
+
+
+
+        gain.gain.exponentialRampToValueAtTime(
+
+            0.045,
+
+            start + 0.012
+
+        );
+
+
+
+        gain.gain.exponentialRampToValueAtTime(
+
+            0.0001,
+
+            start + 0.48
+
+        );
+
+
+
+        oscillator.connect(shimmer);
+
+        shimmer.connect(gain);
+
+        gain.connect(audio.destination);
+
+
+
+        oscillator.start(start);
+
+        oscillator.stop(start + 0.5);
+
+    }
+
+}
+
+
+
+
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+svg#crownScene {
+  width: 88%;
+  max-width: 1000px;
+  height: 88%;
+  overflow: visible;
+}
+
+.crown-wrap {
+  width: 88%;
+  max-width: 1000px;
+  position: relative;
+  line-height: 0;
+}
+
+.crown-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+}
+
+svg#crownScene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+svg#crownScene { width: 112%; max-width: none; }
+.crown-wrap { width: 100%; max-width: none; }
